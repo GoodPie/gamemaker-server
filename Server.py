@@ -1,18 +1,24 @@
 import socket
 import sys
+from enum import Enum
 from time import sleep
 
-from User import User
+from Client import Client
+
+
+
 
 
 class Server:
     def __init__(self, max_clients, port):
 
         self.max_clients = max_clients
-        self.users = []
+        self.clients = []
+        self.verified_clients = {}
         self.port = port
         self.socket = None
         self.running = False
+
 
     def start(self):
 
@@ -40,6 +46,6 @@ class Server:
 
             # Add user to user list and start the user thread
             print("Connected to {0}:{1}".format(address[0], address[1]))
-            user = User(connection, address, self)
-            user.start()
-            self.users.append(user)
+            client = Client(connection, address, self)
+            client.start()
+            self.clients.append(client)
