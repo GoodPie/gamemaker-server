@@ -17,7 +17,7 @@ class Client(threading.Thread):
         # Connection status
         self.connected = True
         # Handshake status defaulted to unknown
-        self.handshake = HANDSHAKE_CODES['UNKNOWN']
+        self.handshake = HANDSHAKE_CODES["UNKNOWN"]
         # Clients each have a user for the game
         self.user = None
 
@@ -30,11 +30,11 @@ class Client(threading.Thread):
             try:
                 # Receive data from clients
                 data = self.connection.recv(1024)
-                event_id = struct.unpack('B', data[:1])[0]
+                event_id = struct.unpack("B", data[:1])[0]
 
-                if event_id == RECEIVE_CODES['PING']:
+                if event_id == RECEIVE_CODES["PING"]:
                     self.connection.send(data)
-                elif event_id == RECEIVE_CODES['DISCONNECT']:
+                elif event_id == RECEIVE_CODES["DISCONNECT"]:
                     self.disconnect_user()
 
             except ConnectionResetError:
@@ -47,29 +47,27 @@ class Client(threading.Thread):
         """
         while self.connected and self.handshake != HANDSHAKE_CODES["COMPLETED"]:
 
-            if self.handshake == HANDSHAKE_CODES['UNKNOWN']:
+            if self.handshake == HANDSHAKE_CODES["UNKNOWN"]:
                 # Send message to client letting them know we are handshaking
-                handshake = struct.pack('B', RECEIVE_CODES['HANDSHAKE'])
+                handshake = struct.pack("B", RECEIVE_CODES["HANDSHAKE"])
                 self.connection.send(handshake)
-                self.handshake = HANDSHAKE_CODES['WAITING_ACK']
+                self.handshake = HANDSHAKE_CODES["WAITING_ACK"]
 
             else:
                 # Wait for handshake ack
                 data = self.connection.recv(1024)
-                event_id = struct.unpack('B', data[:1])[0]
+                event_id = struct.unpack("B", data[:1])[0]
 
-                if event_id == RECEIVE_CODES['HANDSHAKE']:
+                if event_id == RECEIVE_CODES["HANDSHAKE"]:
                     # Received handshake successfully from client
-                    self.handshake = HANDSHAKE_CODES['COMPLETED']
-                    print("Handshake with {0} complete...".format(
-                        self.address[0]))
+                    self.handshake = HANDSHAKE_CODES["COMPLETED"]
+                    print("Handshake with {0} complete...".format(self.address[0]))
 
     def disconnect_user(self):
         """Remove the user from the server after disconnection.
 
         TODO: Pass actual server as reference so we can modify it
         """
-        print("Disconnected from {0}:{1}".format(
-            self.address[0], self.address[1]))
+        print("Disconnected from {0}:{1}".format(self.address[0], self.address[1]))
         self.server.clients.remove(self)
         self.connected = False
