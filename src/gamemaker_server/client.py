@@ -1,7 +1,7 @@
 import struct
 import threading
 
-from NetworkConstants import RECEIVE_CODES, HANDSHAKE_CODES
+from gamemaker_server.network_constants import RECEIVE_CODES, HANDSHAKE_CODES
 
 
 class Client(threading.Thread):

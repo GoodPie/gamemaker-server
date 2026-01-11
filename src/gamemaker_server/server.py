@@ -2,7 +2,7 @@ import socket
 import sys
 from time import sleep
 
-from Client import Client
+from gamemaker_server.client import Client
 
 
 class Server:
