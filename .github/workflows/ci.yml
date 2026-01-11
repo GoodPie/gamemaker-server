@@ -1,4 +1,4 @@
-name: Lint
+name: CI
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [master]
 
 jobs:
-  black:
+  lint-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,3 +23,6 @@ jobs:
 
       - name: Check formatting with Black
         run: uv run black --check .
+
+      - name: Run tests
+        run: uv run pytest
