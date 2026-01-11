@@ -1,17 +1,12 @@
 import socket
 import sys
-from enum import Enum
 from time import sleep
 
 from Client import Client
 
 
-
-
-
 class Server:
     def __init__(self, max_clients, port):
-
         self.max_clients = max_clients
         self.clients = []
         self.verified_clients = {}
@@ -19,12 +14,9 @@ class Server:
         self.socket = None
         self.running = False
 
-
     def start(self):
-
         # Create a new socket
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        # self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 1024)
 
         try:
             # Attempt to bind socket to port

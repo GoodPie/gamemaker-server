@@ -1,15 +1,11 @@
-from enum import Enum
-
-
-receive_codes = {
+RECEIVE_CODES = {
     "PING": 0,
     "HANDSHAKE": 1,
     "DISCONNECT": 2,
 }
 
-handshake_codes = {
+HANDSHAKE_CODES = {
     "UNKNOWN": 0,
     "WAITING_ACK": 1,
-    "COMPLETED": 2
+    "COMPLETED": 2,
 }
-
