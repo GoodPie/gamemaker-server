@@ -34,3 +34,22 @@ Example:
 ```bash
 GAMEMAKER_PORT=8080 GAMEMAKER_MAX_CLIENTS=64 python -m gamemaker_server
 ```
+
+## Protocol
+
+This server uses a raw binary protocol. GameMaker clients must use the raw networking functions:
+
+- `network_send_raw()` - Send data without GameMaker headers
+- `network_send_udp_raw()` - Send UDP data without headers
+
+Standard `network_send_packet()` adds GameMaker-specific headers that this server does not parse.
+
+### Message Format
+
+Messages use a simple 1-byte event ID prefix:
+
+| Event ID | Name | Description |
+|----------|------|-------------|
+| 0 | PING | Echo request (server echoes back) |
+| 1 | HANDSHAKE | Connection establishment |
+| 2 | DISCONNECT | Clean disconnection |
