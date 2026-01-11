@@ -1,0 +1,14 @@
+[project]
+name = "gamemaker-server"
+version = "0.1.0"
+description = "Multi-threaded TCP game server for GameMaker:Studio"
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+dev = [
+    "black",
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py38"]
